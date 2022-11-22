@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {INote} from "./Note.type";
 
 type NoteListProps = {
@@ -11,10 +10,9 @@ export function NoteList (props: NoteListProps) {
     const { notes, onDeleteClick, onEditClick } = props;
     return (
         <div>
+            {notes.length > 0 && <h1>Note List</h1>}
+            {notes.length == 0 && <h1>No Notes yet</h1>}
             <table>
-                <thead>
-                    <h1>Note List</h1>
-                </thead>
                 <tbody>
                 {notes.map(note => (
                     <tr key={note.id}>
