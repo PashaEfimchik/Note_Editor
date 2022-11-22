@@ -1,19 +1,18 @@
 import {FormEvent, useRef, useState, ChangeEvent} from "react";
-import {NoteData} from "../App";
+import {INote} from "./Note.type";
 
 type NoteFormProps = {
-    onSubmit: (data: NoteData) => void
+    onSubmitClick: (data: INote) => void
 }
 
-export function NoteForm({ onSubmit}: NoteFormProps) {
-    const titleRef = useRef<HTMLInputElement>(null);
-    const contentRef = useRef<HTMLTextAreaElement>(null);
-
+export function NoteForm(props: NoteFormProps) {
     const [newTitle, setNewTitle] = useState<string>("");
     const [newTag, setNewTag] = useState<string>("");
     const [newContent, setNewContent] = useState<string>("");
 
-    const handleContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const { onSubmitClick } = props;
+
+    const handleContentChange = (event: ChangeEvent<HTMLInputElement>) => {
         setNewContent(event.target.value);
     }
 
@@ -28,11 +27,14 @@ export function NoteForm({ onSubmit}: NoteFormProps) {
     const handleSubmit = (event: FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
-        onSubmit({
-            title: titleRef.current!.value,
-            body: contentRef.current!.value,
-            tags: ''
-        })
+        const data: INote = {
+            id: Math.floor(Math.random() * 1000000),
+            title: newTitle,
+            content: newContent,
+            tag: newTag,
+        };
+
+        onSubmitClick(data);
     }
 
   return (
@@ -41,7 +43,7 @@ export function NoteForm({ onSubmit}: NoteFormProps) {
         <div>
             <form>
                 <label htmlFor="title">Title</label>
-                <input type="text" id="title" name="title" ref={titleRef} onChange={handleTitleChange} required/>
+                <input type="text" id="title" name="title" onChange={handleTitleChange} required/>
             </form>
             <form>
                 <label htmlFor="tags">Tags</label>
@@ -50,7 +52,7 @@ export function NoteForm({ onSubmit}: NoteFormProps) {
         </div>
         <form>
             <label htmlFor="body">Body</label>
-            <textarea id="body" name="body" ref={contentRef} onChange={handleContentChange} required/>
+            <input type="text" id="body" name="body" onChange={handleContentChange}/>
         </form>
 
         <div>
