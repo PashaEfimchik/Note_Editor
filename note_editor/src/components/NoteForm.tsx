@@ -1,4 +1,4 @@
-import {FormEvent, useRef, useState, ChangeEvent} from "react";
+import {FormEvent, useState, ChangeEvent} from "react";
 import {INote} from "./Note.type";
 
 type NoteFormProps = {
@@ -26,19 +26,17 @@ export function NoteForm(props: NoteFormProps) {
 
     const handleSubmit = (event: FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
-
         const data: INote = {
             id: Math.floor(Math.random() * 1000000),
             title: newTitle,
             content: newContent,
             tag: newTag,
         };
-
         onSubmitClick(data);
     }
 
   return (
-    <form>
+    <div>
       <h1>Note Form</h1>
         <div>
             <form>
@@ -58,6 +56,6 @@ export function NoteForm(props: NoteFormProps) {
         <div>
             <button type="submit" onClick={handleSubmit}>Add Note</button>
         </div>
-    </form>
+    </div>
   );
 }
