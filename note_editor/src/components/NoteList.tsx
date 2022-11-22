@@ -11,7 +11,7 @@ export function NoteList (props: NoteListProps) {
     return (
         <div>
             {notes.length > 0 && <h1>Note List</h1>}
-            {notes.length == 0 && <h1>No Notes yet</h1>}
+            {notes.length === 0 && <h1>No Notes yet</h1>}
             <table>
                 <tbody>
                 {notes.map(note => (
