@@ -14,6 +14,11 @@ export function EditNote(props: NoteFormProps) {
     const [tag, setTag] = useState(data.tag);
     const [note, setNote] = useState(data);
 
+    const setNoteStore = (note: INote) => {
+        setNote(note);
+        localStorage.setItem("notes", JSON.stringify(note));
+    }
+
     const onTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
     }
@@ -27,7 +32,7 @@ export function EditNote(props: NoteFormProps) {
     }
 
     useEffect(() => {
-        setNote(data);
+        setNoteStore(data);
     })
 
     const handleUpdateClick = (e: FormEvent<HTMLButtonElement>) => {
@@ -41,17 +46,12 @@ export function EditNote(props: NoteFormProps) {
         onUpdatedNote(note.id, updatedNote);
     }
 
-    const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const {title, value} = e.target;
-        setNote({...note, [title]: value})
-    }
-
     return (
         <div>
             <h1>Edit Note</h1>
             <form>
                 <label htmlFor="title">Title</label>
-                <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                <input type="text" id="title" name="title" value={title} onChange={onTitleChange}/>
             </form>
             <form>
                 <label htmlFor="tags">Tags</label>
