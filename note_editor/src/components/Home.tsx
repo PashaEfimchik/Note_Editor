@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { INote } from "./Note.type";
 import { NoteForm } from "./NoteForm";
-import { NoteList } from "./NoteList";
 import {EditNote} from "./EditNote";
 import {useLocalStorage} from "./useLocalStorage";
+import {FilterTagSelector} from "./FilterTagSelector";
 
 
 export default function Home() {
@@ -51,11 +51,13 @@ export default function Home() {
                   setEditNote={setShowEditNote}
               />
           )}
-
-          <NoteList
+          <FilterTagSelector
               notes={notes}
+              tags={tags}
+              tagNoteList={[]}
               onDeleteClick={onDeleteNote}
-              onEditClick={onCurrentNote} />
+              onEditClick={onCurrentNote}
+          />
       </div>
     );
 }
