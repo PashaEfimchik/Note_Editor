@@ -12,34 +12,54 @@ export function NoteForm(props: NoteFormProps) {
     const [newTitle, setNewTitle] = useState<string>("");
     const [newTag, setNewTag] = useState<string>("");
     const [newContent, setNewContent] = useState<string>("");
+    const [tagTitle, setTagTitle] = useState<string>("");
+    const [tagContent, setTagContent] = useState<string>("");
     const refT = useRef<any>();
     const refB = useRef<any>();
 
     const { onSubmitClick, setEditNote, notes } = props;
 
-    const handleContentChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setNewContent(event.target.value);
+    const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        let title = event.target.value;
+        let arrTitle = title.split(" ");
+        let newTagTitle = [];
+        for (let i = 0; i < arrTitle.length; i++) {
+            if (arrTitle[i].startsWith("#")) {
+                newTagTitle.push(arrTitle[i].slice(1));
+                delete arrTitle[i];
+            }
+        }
+        setTagTitle(newTagTitle.join(" "));
+        setNewTitle(arrTitle.join(" "));
     }
 
-    /*const handleTagChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        setNewTag(event.target.value);
-    }*/
-
-
-    const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setNewTitle(event.target.value);
+    const handleContentChange = (event: ChangeEvent<HTMLInputElement>) => {
+        let content = event.target.value;
+        let arrContent = content.split(" ");
+        let newTagContent = [];
+        for (let i = 0; i < arrContent.length; i++) {
+            if (arrContent[i].startsWith("#")) {
+                newTagContent.push(arrContent[i].slice(1));
+                delete arrContent[i];
+            }
+        }
+        setTagContent(newTagContent.join(" "));
+        setNewContent(arrContent.join(" "));
     }
 
     const handleSubmit = (event: FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
+        let tagSum = newTag + " " + tagTitle + " " + tagContent;
+        let arr = tagSum.split(" ");
+        const uniqTags = Array.from(new Set(arr)).join(" ");
         const data: INote = {
             id: Math.floor(Math.random() * 1000000),
             title: newTitle,
             content: newContent,
-            tag: newTag,
+            tag: uniqTags,
         };
         onSubmitClick(data);
-        setNewTag(newTag);
+        setNewTag(uniqTags);
         refT.current.value = '';
         refB.current.value = '';
         setEditNote(false);
@@ -49,7 +69,6 @@ export function NoteForm(props: NoteFormProps) {
         setNewTag(newTag);
     })
 
-
     return (
     <div>
       <h1>Note Form</h1>
@@ -58,10 +77,6 @@ export function NoteForm(props: NoteFormProps) {
                 <label htmlFor="title">Title</label>
                 <input type="text" id="title" name="title" ref={refT} onChange={handleTitleChange} required/>
             </form>
-            {/*<form>
-                <label htmlFor="tags">Tags</label>
-                <input type="text" id="tags" name="tags" onChange={handleTagChange}/>
-            </form>*/}
         </div>
         <TagSelector
             notes={notes}
