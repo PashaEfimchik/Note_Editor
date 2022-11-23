@@ -1,36 +1,24 @@
-import {useEffect, useState} from "react";
-import {IBaseNote, INote} from "./Note.type";
+import { useEffect, useState } from "react";
+import { INote } from "./Note.type";
 import { NoteForm } from "./NoteForm";
 import { NoteList } from "./NoteList";
 import {EditNote} from "./EditNote";
+import {useLocalStorage} from "./useLocalStorage";
 
-const initEditNote = {
-    id: 0,
-    title: "",
-    content: "",
-    tag: ""
-}
 
 export default function Home() {
-    const [notes, setNotes] = useState<INote[]>([]);
-    const [editNote, setEditNote] = useState<INote>(initEditNote);
+    const [notes, setNotes] = useLocalStorage<INote[]>("NOTES", []);
+    const [tags, setTags] = useLocalStorage<string[]>("TAGS", []);
+    const [editNote, setEditNote] = useState<INote>(notes.map(note => note)[0]);
     const [showEditNote, setShowEditNote] = useState(false);
 
-    const setNoteList = (noteList: INote[]) => {
-        setNotes(noteList);
-        localStorage.setItem("notes", JSON.stringify(noteList));
-    }
-
     useEffect(() => {
-        const noteList = localStorage.getItem("notes");
-        if (noteList) {
-            setNotes(JSON.parse(noteList));
-        }
-    }, []);
+        setTags(() => Array.from(new Set(notes.map(note => note.tag.split(" ")).flat())));
+    }, [notes]);
 
-    const onAddNote = (newData: IBaseNote) => {
+    const onAddNote = (newData: INote) => {
         const id = Math.floor(Math.random() * 1000);
-        setNoteList([...notes, {...newData, id}]);
+        setNotes([...notes, {...newData, id}]);
     }
 
     const onCurrentNote = (note: INote) => {
@@ -40,11 +28,11 @@ export default function Home() {
 
     const onUpdateNote = (id: number, newData: INote) => {
         setShowEditNote(false);
-        setNoteList(notes.map(note => note.id === id ? newData : note));
+        setNotes(notes.map(note => note.id === id ? newData : note));
     }
 
     const onDeleteNote = (currentNote: INote) => {
-        setNoteList(notes.filter(note => note.id !== currentNote.id));
+        setNotes(notes.filter(note => note.id !== currentNote.id));
     }
 
   return (
@@ -54,10 +42,16 @@ export default function Home() {
                   data={editNote}
                   onUpdatedNote={onUpdateNote}
                   setEditNote={setShowEditNote}
+                  notes={notes}
               />
           ) : (
-              <NoteForm onSubmitClick={onAddNote}/>
+              <NoteForm
+                  onSubmitClick={onAddNote}
+                  notes={notes}
+                  setEditNote={setShowEditNote}
+              />
           )}
+
           <NoteList
               notes={notes}
               onDeleteClick={onDeleteNote}
