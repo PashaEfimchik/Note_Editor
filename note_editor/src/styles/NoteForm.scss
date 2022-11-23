@@ -1,0 +1,145 @@
+$font-form: Helvetica, sans-serif;
+$color-submit: #3e68d1;
+$color-hover-submit: #2c4e9a;
+$color-active-submit: #1b2d5e;
+
+$color-delete: #d13e3e;
+$color-hover-delete: #9a2525;
+$color-active-delete: #731717;
+
+$color-edit: #d39538;
+$color-hover-edit: #91681e;
+$color-active-edit: #5a3d00;
+
+$color-cancel: #d3d3d3;
+$color-hover-cancel: #989898;
+$color-active-cancel: #606060;
+
+@import "Header";
+
+.NoteForm {
+    h1{
+        font-size: 2em;
+        text-align: center;
+        margin-top: 0em;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: $font-form;
+    font-size: 1em;
+}
+
+.formNote {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-family: $font-form;
+    font-size: 1.2em;
+    grid-gap: 3.8vw;
+}
+
+.formTitle,
+.formContent {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    font-size: 1.2em;
+    font-weight: 700;
+    padding: .4em;
+}
+
+#title {
+    width: 12vw;
+    height: 2vh;
+    padding: 10px;
+    font-size: .8em;
+    font-weight: 700;
+    text-align: left;
+    outline: none;
+    border: none;
+    color: $primary-color;
+    border-radius: 5px;
+}
+
+#title:focus,
+#body:focus {
+    box-shadow: 0 0 10px rgba(204, 204, 204, 0.4);
+}
+#body {
+    display: flex;
+    flex-direction: column;
+    font-family: $font-form;
+    font-size: 0.7em;
+    width: 25vw;
+    height: 10vh;
+    padding: 1em;
+    resize: none;
+    outline: none;
+    border: none;
+    color: $primary-color;
+    border-radius: 5px;
+}
+
+.submitNoteForm,
+.editNoteForm,
+.cancelEditNoteForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-form;
+    font-size: .9em;
+    padding: 1em;
+    width: 10em;
+    text-align: center;
+    background: $color-submit;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 5px;
+    transition: 0.2s;
+    border: none;
+}
+
+.submitNoteForm:hover {
+    background: $color-hover-submit;
+    cursor: pointer;
+}
+
+.submitNoteForm:active {
+    background: $color-active-submit;
+}
+
+.formButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 1em;
+}
+
+.editNoteForm {
+    background: $color-delete;
+}
+
+.editNoteForm:hover {
+    background: $color-hover-delete;
+    cursor: pointer;
+}
+
+.editNoteForm:active {
+    background: $color-active-delete;
+}
+
+.cancelEditNoteForm {
+    background: $color-cancel;
+    color: #000;
+}
+
+.cancelEditNoteForm:hover {
+    background: $color-hover-cancel;
+    cursor: pointer;
+}
+
+.cancelEditNoteForm:active {
+    background: $color-active-cancel;
+}

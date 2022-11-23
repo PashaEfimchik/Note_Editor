@@ -1,0 +1,133 @@
+$font-form: Helvetica, sans-serif;
+@import "Header";
+
+.NoteListForm {
+  h1 {
+    font-size: 1.4em;
+    text-align: center;
+  }
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-form;
+    font-weight: 700;
+}
+
+.tableNoteList {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: .7em;
+  border-radius: 10px;
+  border-spacing: 0;
+  text-align: center;
+  min-width: 600px;
+  width: 600px;
+}
+
+.tableNoteList caption {
+  background: #849bd0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px  4px 0 rgba(0,0,0,.3);
+  color: white;
+  font-family: "Roboto Slab",serif;
+  font-size: 2em;
+  text-align: center;
+  min-width: 400px;
+  max-width: 600px;
+}
+
+.tableNoteList td {
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0);
+}
+
+.tableNoteList td {
+  padding: 2em 100px;
+  background: rgba(255, 255, 255, 0);
+}
+
+.tableNoteList tr {
+    min-width: 360px;
+}
+
+.noteTitle {
+  display: flex;
+    flex-direction: column;
+  font-size: 1.4em;
+  font-weight: bold;
+  padding: .5em 0 0 .4em;
+  align-items: start;
+  text-align: center;
+  max-width: 400px;
+}
+
+.noteContent {
+  display: flex;
+    flex-direction: column;
+  font-size: 1.2em;
+  font-weight: 400;
+  padding: .3em 0 0 .5em;
+  align-items: start;
+  text-align: center;
+  overflow: hidden;
+  max-width: 400px;
+  flex-wrap: wrap;
+}
+
+.noteTag {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  font-family: $font-form;
+  font-size: 1em;
+  font-weight: 700;
+  padding: .3em 0 0 .7em;
+  color: #0247bd;
+}
+
+.deleteButton,
+.editButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-form;
+  font-size: .9em;
+  padding: 1em;
+  width: 5em;
+  height: 2em;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 5px;
+  transition: 0.2s;
+  border: none;
+}
+
+.deleteButton {
+  background: #d13e3e;
+  margin-bottom: .3em;
+}
+
+.deleteButton:hover {
+  background: #9a2525;
+  cursor: pointer;
+}
+
+.deleteButton:active {
+  background: #731717;
+}
+
+.editButton {
+  background: #d39538;
+}
+
+.editButton:hover {
+  background: #91681e;
+  cursor: pointer;
+}
+
+.editButton:active {
+  background: #62440f;
+}

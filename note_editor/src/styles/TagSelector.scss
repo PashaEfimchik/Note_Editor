@@ -1,0 +1,22 @@
+$font-form: Helvetica, sans-serif;
+@import "Header";
+
+.TagSelector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-form;
+    font-size: 1.2em;
+    font-weight: 700;
+    text-align: center;
+    padding: .5em;
+}
+
+.creatableSelector {
+    padding: .4em;
+    font-size: .8em;
+    font-weight: 700;
+    width: 8vw;
+    color: $primary-color;
+}
