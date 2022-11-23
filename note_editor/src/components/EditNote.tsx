@@ -2,6 +2,7 @@ import {ChangeEvent, FormEvent, useEffect, useRef, useState} from "react";
 import { INote } from "./Note.type";
 import {useLocalStorage} from "./useLocalStorage";
 import {TagSelector} from "./TagSelector";
+import '../styles/NoteForm.scss'
 
 type NoteFormProps = {
     notes: INote[];
@@ -37,7 +38,7 @@ export function EditNote(props: NoteFormProps) {
         setTitle(arrTitle.join(" "));
     }
 
-    const onContentChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const onContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         let newContent = event.target.value;
         let arrContent = newContent.split(" ");
         let addNewTagContent = [];
@@ -71,24 +72,30 @@ export function EditNote(props: NoteFormProps) {
     }
 
     return (
-        <div>
+        <div className="NoteForm">
             <h1>Edit Note</h1>
-            <form>
-                <label htmlFor="title">Title</label>
-                <input type="text" id="title" name="title" value={title} onChange={onTitleChange}/>
-            </form>
-            <TagSelector
-                notes={notes}
-                tagNoteList={tag.split(" ")}
-                onAddTag={(tag) => setTag(tag)}
-                setEditNote={setEditNote}
-            />
-            <form>
-                <label htmlFor="body">Body</label>
-                <input type="text" id="body" name="body" value={content} onChange={onContentChange} required/>
-            </form>
-            <button onClick={handleUpdateClick}>Update</button>
-            <button onClick={() => setEditNote(false)}>Cancel</button>
+            <div className="formNote">
+                <form className="formTitle">
+                    <label htmlFor="title">Title</label>
+                    <input type="text" id="title" name="title" value={title} onChange={onTitleChange}/>
+                </form>
+                <TagSelector
+                    notes={notes}
+                    tagNoteList={tag.split(" ")}
+                    onAddTag={(tag) => setTag(tag)}
+                    setEditNote={setEditNote}
+                />
+            </div>
+            <div className="formContent">
+                <form className="formContent">
+                    <label htmlFor="body">Body</label>
+                    <textarea id="body" name="body" value={content} onChange={onContentChange} required/>
+                </form>
+            </div>
+            <div className="formButton">
+                <button className="editNoteForm" onClick={handleUpdateClick}>Update</button>
+                <button className="cancelEditNoteForm" onClick={() => setEditNote(false)}>Cancel</button>
+            </div>
         </div>
     )
 }

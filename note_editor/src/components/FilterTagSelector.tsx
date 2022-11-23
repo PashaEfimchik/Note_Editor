@@ -2,6 +2,7 @@ import CreatableReactSelect from "react-select/creatable";
 import {INote} from "./Note.type";
 import {useEffect, useState} from "react";
 import {NoteList} from "./NoteList";
+import '../styles/FilterTagSelector.scss'
 
 type FilterTagSelectorProps = {
     notes: INote[];
@@ -33,24 +34,28 @@ export function FilterTagSelector(props: FilterTagSelectorProps) {
     }, [notes]);
 
     return (
-        <div style={{width: "20%"}}>
-            <h1>Filter Tag Selector</h1>
-            <CreatableReactSelect
-                isMulti
-                isClearable
-                options={
-                    tags.map(tag => ({value: tag, label: tag}))
-                }
-                placeholder={"Filter by #tags"}
-                defaultValue={tagNoteList.map(
-                    tag => ({value: tag, label: tag}))
-                }
-                onChange={handleSelect}
-            />
-            <NoteList
-                notes={getFilteredNotes()}
-                onDeleteClick={props.onDeleteClick}
-                onEditClick={props.onEditClick} />
+        <div className="FilterTagSelector">
+            <label htmlFor="creatableFilterSelector">Filter Tag Selector</label>
+            <div className="creatableFilterSelector" id="creatableFilterSelector">
+                <CreatableReactSelect
+                    isMulti
+                    isClearable
+                    options={
+                        tags.map(tag => ({value: tag, label: tag}))
+                    }
+                    placeholder={"Filter by #tags"}
+                    defaultValue={tagNoteList.map(
+                        tag => ({value: tag, label: tag}))
+                    }
+                    onChange={handleSelect}
+                />
+            </div>
+            <div className="NoteList">
+                <NoteList
+                    notes={getFilteredNotes()}
+                    onDeleteClick={props.onDeleteClick}
+                    onEditClick={props.onEditClick} />
+            </div>
         </div>
     );
 }

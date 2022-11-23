@@ -1,4 +1,5 @@
 import {INote} from "./Note.type";
+import '../styles/NoteList.scss'
 
 type NoteListProps = {
     notes: INote[]
@@ -9,23 +10,25 @@ type NoteListProps = {
 export function NoteList (props: NoteListProps) {
     const { notes, onDeleteClick, onEditClick } = props;
     return (
-        <div>
-            {notes.length > 0 && <h1>Note List</h1>}
-            {notes.length === 0 && <h1>No Notes yet</h1>}
-            <table>
-                <tbody>
+        <div className="NoteListForm">
+            <table className="tableNoteList">
+                {notes.length > 0 && <caption>Note List</caption>}
+                {notes.length === 0 && <caption>No Notes yet</caption>}
                 {notes.map(note => (
-                    <tr key={note.id}>
-                        <td>{note.title}</td>
-                        <td>{note.content}</td>
-                        <td>{note.tag}</td>
-                        <td>
-                            <button onClick={() => onDeleteClick(note)}>Delete</button>
-                            <button onClick={() => onEditClick(note)}>Edit</button>
+                    <tr className="noteId" key={note.id}>
+                        <tr className="noteTitle">{note.title}</tr>
+                        <tr className="noteContent">{note.content}</tr>
+                        <tr className="noteTag">
+                            <div className="divNoteTag" >
+                                {note.tag}
+                            </div>
+                        </tr>
+                        <td className="noteListButton">
+                            <button className="deleteButton" onClick={() => onDeleteClick(note)}>Delete</button>
+                            <button className="editButton" onClick={() => onEditClick(note)}>Edit</button>
                         </td>
                     </tr>
                 ))}
-                </tbody>
             </table>
         </div>
     );

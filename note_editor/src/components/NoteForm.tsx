@@ -1,6 +1,7 @@
 import {FormEvent, useState, ChangeEvent, useEffect, useRef} from "react";
 import {INote} from "./Note.type";
 import {TagSelector} from "./TagSelector";
+import '../styles/NoteForm.scss'
 
 type NoteFormProps = {
     notes: INote[];
@@ -33,7 +34,7 @@ export function NoteForm(props: NoteFormProps) {
         setNewTitle(arrTitle.join(" "));
     }
 
-    const handleContentChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         let content = event.target.value;
         let arrContent = content.split(" ");
         let newTagContent = [];
@@ -70,26 +71,27 @@ export function NoteForm(props: NoteFormProps) {
     })
 
     return (
-    <div>
+    <div className="NoteForm">
       <h1>Note Form</h1>
-        <div>
-            <form>
+        <div className="formNote">
+            <form className="formTitle">
                 <label htmlFor="title">Title</label>
                 <input type="text" id="title" name="title" ref={refT} onChange={handleTitleChange} required/>
             </form>
+            <TagSelector
+                notes={notes}
+                tagNoteList={[]}
+                onAddTag={(tag) => setNewTag(tag)}
+                setEditNote={setEditNote}
+            />
         </div>
-        <TagSelector
-            notes={notes}
-            tagNoteList={[]}
-            onAddTag={(tag) => setNewTag(tag)}
-            setEditNote={setEditNote}
-        />
-        <form>
-            <label htmlFor="body">Body</label>
-            <input type="text" id="body" name="body" ref={refB} onChange={handleContentChange}/>
-        </form>
-
-        <button onClick={handleSubmit}>Add Note</button>
+        <div className="formContent">
+            <form className="formContent">
+                <label htmlFor="body">Body</label>
+                <textarea id="body" name="body" ref={refB} onChange={handleContentChange}/>
+            </form>
+        </div>
+        <button className="submitNoteForm" onClick={handleSubmit}>Add Note</button>
     </div>
   );
 }

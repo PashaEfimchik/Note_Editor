@@ -2,6 +2,7 @@ import {useLocalStorage} from "./useLocalStorage";
 import CreatableReactSelect from "react-select/creatable";
 import {INote} from "./Note.type";
 import {useEffect} from "react";
+import '../styles/TagSelector.scss'
 
 type TagSelectorProps = {
     notes: INote[];
@@ -20,18 +21,20 @@ export function TagSelector(props: TagSelectorProps) {
     }, [notes]);
 
     return (
-        <div style={{width: "20%"}}>
-            <h1>Tag Selector</h1>
-            <CreatableReactSelect
-                isMulti
-                isClearable
-                onChange={(e) => onAddTag(e.map((tag: any) => tag.value).join(" "))}
-                options={
-                    tags.map(tag => ({value: tag, label: tag}))
-                }
-                placeholder={"Add #tags"}
-                defaultValue={tagNoteList.map(tag => ({value: tag, label: tag}))}
-            />
+        <div className="TagSelector">
+            <label htmlFor="creatableSelector">Tag Selector</label>
+            <div className="creatableSelector" id="creatableSelector">
+                <CreatableReactSelect
+                    isMulti
+                    isClearable
+                    onChange={(e) => onAddTag(e.map((tag: any) => tag.value).join(" "))}
+                    options={
+                        tags.map(tag => ({value: tag, label: tag}))
+                    }
+                    placeholder={"Add #tags"}
+                    defaultValue={tagNoteList.map(tag => ({value: tag, label: tag}))}
+                />
+            </div>
         </div>
     );
 }

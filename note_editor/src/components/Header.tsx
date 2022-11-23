@@ -1,3 +1,5 @@
+import '../styles/Header.scss'
+
 export default function Header() {
     return (
         <header>
